@@ -1,0 +1,157 @@
+//DATA-LAB Assignment01 Bilal khan (p180123)
+#include<iostream>
+using namespace std;
+class List{
+	public:
+	int *array=new int[7];
+	int *current=NULL,*temp=NULL,*head=NULL,*tail=NULL;
+	int length=0;
+
+	List()
+	{
+		cout<<"I am frist constructor"<<endl;
+		head=array;
+		tail=&array[7];
+		current=array;
+		for (int i=0;i<7;i++)
+		{
+			*current=0;
+			current+=1;
+			length+=1;
+			//cout<<"current--"<<current<<endl<<endl;
+		}
+		current=NULL;
+		current=array;
+
+	}
+
+	List(List &L2)
+	{
+		cout<<"I am second constructor and working fine"<<endl;
+	}
+
+	void insert()
+	{
+		int val=0;
+		cout<<"value";
+		cin>>val;
+		//cout<<"*current"<<current<<endl;
+		if (length==0)
+		{
+			cout<<"List is empty";
+			*current=val;
+			return;
+		}
+		if (current==tail)
+		{
+			cout<<"List is full"<<endl;
+			return;
+		}
+		if (length!=0 && *current==0){
+			//cout<<"feeding a new value"<<endl;			
+			*current=val;
+			current+=1;
+			return;
+			}
+	}
+	void print()
+	{
+		cout<<"printing now"<<endl;
+		for (int i=0;i<7;i++)
+		{
+			cout<<array[i]<<endl;
+		}
+	}
+			
+	void remove()
+	{
+		int del,flag=0;
+		current=head;
+		cout<<"enter value to delete";
+		cin>>del;
+	
+		for (int i=0;i<7;i++)
+		{
+			if (del==*current && length!=0)
+			{
+				cout<<"found"<<endl;
+				temp=current+1;
+				*current=0;
+				swap(*current,*temp);
+				flag=1;
+				del=0;
+				
+			}
+			current+=1;
+		}
+	}
+
+	void reinsert(int a,int b)
+	{
+		current=head;
+		int *q=NULL;
+		q=head;
+		int check=1;
+		int size=0,inttemp=0;
+		for (int i=0;i<7;i++)
+		{
+			if (q==NULL || *q==0)
+			{
+				cout<<endl<<"SORRY YOU CANNOT INSERT THE VALUE AT:"<<b<<" because some index is empty before"<<endl<<endl;
+				return;
+			}
+			q+=1;
+		}
+
+
+		for (int i=0;i<7;i++)
+		{
+			if (size==b)
+			{
+				//cout<<"size==b"<<size<<" "<<b<<endl;
+				swap(a,*current);
+				size=*(current+1);
+				b=*(current+1);
+				check=0;
+				//cout<<"size"<<size<<endl;		
+			}
+			if (check==1)
+			{	
+				size++;
+			}
+			current+=1;
+		}
+	}
+
+	void clear()
+	{
+
+		cout<<"Clearing everything now"<<endl;
+		current=head;
+		for (int i=0;i<7;i++)
+		{
+			*current=0;
+			current+=1;
+		}
+		temp=NULL;
+		head=NULL;
+		tail=NULL;
+	}
+	
+};
+int main()
+{
+	List L;
+	List L2=L;
+	L.insert();
+	L.insert();
+	L.insert();
+	L.insert();
+	L.insert();
+	L.insert();
+	L.insert();
+	L.reinsert(55,2);
+	L.remove();
+	L.clear();
+	L.print();
+}
